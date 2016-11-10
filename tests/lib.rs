@@ -2,7 +2,7 @@ extern crate nicehash;
 
 use std::time::Duration;
 use std::error::Error;
-use std::{f64, thread};
+use std::f64;
 
 use nicehash::{Client, Location, Algorithm};
 use nicehash::types::{NewOrder, PoolInfo};
