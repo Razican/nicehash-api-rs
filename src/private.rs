@@ -471,9 +471,9 @@ impl Client {
                                                 order_id: u64,
                                                 speed_limit: Option<f64>)
                                                 -> Result<()> {
-        // if order_id == 0 {
-        //     return Err(Error::Result("Order id/price/algo incorrect.".to_owned()));
-        // }
+        if order_id == 0 {
+            return Err(Error::Result("Order id/limit/algo incorrect.".to_owned()));
+        }
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
@@ -484,9 +484,9 @@ impl Client {
             query_pairs.append_pair("algo", algorithm.as_str());
             query_pairs.append_pair("order", &format!("{}", order_id));
             if let Some(l) = speed_limit {
-                // if l < 0.2 {
-                //     return Err(Error::Result("Invalid limit.".to_owned()));
-                // }
+                if l <= 0.0 {
+                    return Err(Error::Result("Order id/limit/algo incorrect.".to_owned()));
+                }
                 query_pairs.append_pair("limit", &format!("{:.8}", l));
             } else {
                 query_pairs.append_pair("limit", "0");
