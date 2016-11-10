@@ -2,7 +2,7 @@ extern crate nicehash;
 
 use std::time::Duration;
 use std::error::Error;
-use std::f64;
+use std::{f64, thread};
 
 use nicehash::{Client, Location, Algorithm};
 use nicehash::types::{NewOrder, PoolInfo};
@@ -317,15 +317,6 @@ fn it_remove_order_errors() {
                    .err()
                    .unwrap()
                    .description());
-    assert_eq!("No such order.",
-               client.remove_order(TEST_API_ID,
-                                 TEST_API_KEY,
-                                 Location::Europe,
-                                 Algorithm::Equihash,
-                                 10)
-                   .err()
-                   .unwrap()
-                   .description());
     assert_eq!("Incorrect key.",
                client.remove_order(9999999999,
                                  TEST_API_KEY,
@@ -475,13 +466,13 @@ fn it_set_order_speed_limit_errors() {
                    .err()
                    .unwrap()
                    .description());
-    assert_eq!("Order id/limit/algo incorrect.",
+    assert_eq!("Order id incorrect.",
                client.set_order_speed_limit(TEST_API_ID,
                                           TEST_API_KEY,
                                           Location::Europe,
                                           Algorithm::Equihash,
-                                          0,
-                                          Some(0.0))
+                                          10,
+                                          Some(1.1))
                    .err()
                    .unwrap()
                    .description());
