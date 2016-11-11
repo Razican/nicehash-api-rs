@@ -133,17 +133,20 @@ impl AlgoStat {
     /// Creates an `AlgoStat` from a JSON value.
     fn from_json(json: BTreeMap<String, Value>) -> Result<(Algorithm, AlgoStat)> {
         let algorithm = Algorithm::from_u64(json.get("algo")
-            .ok_or(Error::Api("`algo` not found in stats".to_owned()))?
+            .ok_or_else(|| Error::Api("`algo` not found in stats".to_owned()))?
             .as_u64()
-            .ok_or(Error::Api("invalid algorithm in stats (must be an unsigned integer)"
-                .to_owned()))?)?;
+            .ok_or_else(|| {
+                Error::Api("invalid algorithm in stats (must be an unsigned integer)".to_owned())
+            })?)?;
 
         let profitability_above_btc = match json.get("profitability_above_btc") {
             Some(v) => {
                 Some(v.as_str()
-                    .ok_or(Error::Api("invalid `profitability_above_btc` in stats (must be a \
-                                       float in a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `profitability_above_btc` in stats (must be a float \
+                                    in a string)"
+                            .to_owned())
+                    })?
                     .parse()?)
             }
             None => None,
@@ -151,9 +154,11 @@ impl AlgoStat {
         let profitability_btc = match json.get("profitability_btc") {
             Some(v) => {
                 Some(v.as_str()
-                    .ok_or(Error::Api("invalid `profitability_btc` in stats (must be a float in \
-                                       a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `profitability_btc` in stats (must be a float in a \
+                                    string)"
+                            .to_owned())
+                    })?
                     .parse()?)
             }
             None => None,
@@ -162,9 +167,11 @@ impl AlgoStat {
         let profitability_above_eth = match json.get("profitability_above_eth") {
             Some(v) => {
                 Some(v.as_str()
-                    .ok_or(Error::Api("invalid `profitability_above_eth` in stats (must be a \
-                                       float in a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `profitability_above_eth` in stats (must be a float \
+                                    in a string)"
+                            .to_owned())
+                    })?
                     .parse()?)
             }
             None => None,
@@ -172,9 +179,11 @@ impl AlgoStat {
         let profitability_eth = match json.get("profitability_eth") {
             Some(v) => {
                 Some(v.as_str()
-                    .ok_or(Error::Api("invalid `profitability_eth` in stats (must be a float in \
-                                       a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `profitability_eth` in stats (must be a float in a \
+                                    string)"
+                            .to_owned())
+                    })?
                     .parse()?)
             }
             None => None,
@@ -183,9 +192,11 @@ impl AlgoStat {
         let profitability_above_ltc = match json.get("profitability_above_ltc") {
             Some(v) => {
                 Some(v.as_str()
-                    .ok_or(Error::Api("invalid `profitability_above_ltc` in stats (must be a \
-                                       float in a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `profitability_above_ltc` in stats (must be a float \
+                                    in a string)"
+                            .to_owned())
+                    })?
                     .parse()?)
             }
             None => None,
@@ -193,9 +204,11 @@ impl AlgoStat {
         let profitability_ltc = match json.get("profitability_ltc") {
             Some(v) => {
                 Some(v.as_str()
-                    .ok_or(Error::Api("invalid `profitability_ltc` in stats (must be a float in \
-                                       a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `profitability_ltc` in stats (must be a float in a \
+                                    string)"
+                            .to_owned())
+                    })?
                     .parse()?)
             }
             None => None,
@@ -204,16 +217,18 @@ impl AlgoStat {
         Ok((algorithm,
             AlgoStat {
             price: json.get("price")
-                .ok_or(Error::Api("`price` not found in stats".to_owned()))?
+                .ok_or_else(|| Error::Api("`price` not found in stats".to_owned()))?
                 .as_str()
-                .ok_or(Error::Api("invalid `price` in stats (must be a float in a string)"
-                    .to_owned()))?
+                .ok_or_else(|| {
+                    Error::Api("invalid `price` in stats (must be a float in a string)".to_owned())
+                })?
                 .parse()?,
             speed: json.get("speed")
-                .ok_or(Error::Api("`speed` not found in stats".to_owned()))?
+                .ok_or_else(|| Error::Api("`speed` not found in stats".to_owned()))?
                 .as_str()
-                .ok_or(Error::Api("invalid `speed` in stats (must be a float in a string)"
-                    .to_owned()))?
+                .ok_or_else(|| {
+                    Error::Api("invalid `speed` in stats (must be a float in a string)".to_owned())
+                })?
                 .parse()?,
             profitability_above_btc: profitability_above_btc,
             profitability_btc: profitability_btc,
@@ -283,46 +298,50 @@ impl Order {
     pub fn from_json(json: Value) -> Result<Order> {
         if let Value::Object(v) = json {
             let id = v.get("id")
-                .ok_or(Error::Api("no `id` parameter found in the order".to_owned()))?
+                .ok_or_else(|| Error::Api("no `id` parameter found in the order".to_owned()))?
                 .as_u64()
-                .ok_or(Error::Api("invalid order id".to_owned()))?;
+                .ok_or_else(|| Error::Api("invalid order id".to_owned()))?;
 
             let order_type = OrderType::from_u64(v.get("type")
-                .ok_or(Error::Api("no `type` parameter found in the order".to_owned()))?
+                .ok_or_else(|| Error::Api("no `type` parameter found in the order".to_owned()))?
                 .as_u64()
-                .ok_or(Error::Api("invalid order type".to_owned()))?)?;
+                .ok_or_else(|| Error::Api("invalid order type".to_owned()))?)?;
 
             let limit_speed = v.get("limit_speed")
-                .ok_or(Error::Api("no `limit_speed` parameter found in the order".to_owned()))?
+                .ok_or_else(|| {
+                    Error::Api("no `limit_speed` parameter found in the order".to_owned())
+                })?
                 .as_str()
-                .ok_or(Error::Api("invalid order limit speed".to_owned()))?
+                .ok_or_else(|| Error::Api("invalid order limit speed".to_owned()))?
                 .parse()?;
 
             let alive = v.get("alive")
-                .ok_or(Error::Api("no `alive` parameter found in the order".to_owned()))?
+                .ok_or_else(|| Error::Api("no `alive` parameter found in the order".to_owned()))?
                 .as_bool()
-                .ok_or(Error::Api("invalid order `alive` parameter".to_owned()))?;
+                .ok_or_else(|| Error::Api("invalid order `alive` parameter".to_owned()))?;
 
             let price = v.get("price")
-                .ok_or(Error::Api("no `price` parameter found in the order".to_owned()))?
+                .ok_or_else(|| Error::Api("no `price` parameter found in the order".to_owned()))?
                 .as_str()
-                .ok_or(Error::Api("invalid order price".to_owned()))?
+                .ok_or_else(|| Error::Api("invalid order price".to_owned()))?
                 .parse()?;
 
             let workers = v.get("workers")
-                .ok_or(Error::Api("no `workers` parameter found in the order".to_owned()))?
+                .ok_or_else(|| Error::Api("no `workers` parameter found in the order".to_owned()))?
                 .as_u64()
-                .ok_or(Error::Api("invalid order workers".to_owned()))?;
+                .ok_or_else(|| Error::Api("invalid order workers".to_owned()))?;
 
             let algorithm = Algorithm::from_u64(v.get("algo")
-                .ok_or(Error::Api("no algorithm found in the order".to_owned()))?
+                .ok_or_else(|| Error::Api("no algorithm found in the order".to_owned()))?
                 .as_u64()
-                .ok_or(Error::Api("invalid order algorithm".to_owned()))?)?;
+                .ok_or_else(|| Error::Api("invalid order algorithm".to_owned()))?)?;
 
             let accepted_speed = v.get("accepted_speed")
-                .ok_or(Error::Api("no `accepted_speed` parameter found in the order".to_owned()))?
+                .ok_or_else(|| {
+                    Error::Api("no `accepted_speed` parameter found in the order".to_owned())
+                })?
                 .as_str()
-                .ok_or(Error::Api("invalid order accepted speed".to_owned()))?
+                .ok_or_else(|| Error::Api("invalid order accepted speed".to_owned()))?
                 .parse()?;
 
             Ok(Order {
@@ -445,9 +464,10 @@ impl BuyInfo {
             match key.as_str() {
                 "down_time" => {
                     down_time = Some(value.as_u64()
-                        .ok_or(Error::Api("invalid `down_time` in buy information, expected \
-                                           u64"
-                            .to_owned()))?);
+                        .ok_or_else(|| {
+                            Error::Api("invalid `down_time` in buy information, expected u64"
+                                .to_owned())
+                        })?);
                 }
                 "algorithms" => {
                     if let Value::Array(arr) = value {
@@ -502,106 +522,125 @@ impl BuyInfo {
         }
 
         Ok(BuyInfo {
-            down_time: Duration::from_secs(down_time.ok_or(
-                Error::Api("`down_time` not found in buy information structure".to_owned())
-            )?),
-            scrypt: scrypt.ok_or(
-                Error::Api("Scrypt algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            sha256: sha256.ok_or(
-                Error::Api("SHA256 algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            scrypt_nf: scrypt_nf.ok_or(
-                Error::Api("ScryptNf algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            x11: x11.ok_or(Error::Api("X11 algorithm information not found in buy information \
-                                   structure"
-                    .to_owned()))?,
-            x13: x13.ok_or(Error::Api("X13 algorithm information not found in buy information \
-                                   structure"
-                    .to_owned()))?,
-            keccak: keccak.ok_or(
-                Error::Api("Keccak algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            x15: x15.ok_or(Error::Api("X15 algorithm information not found in buy information \
-                                   structure"
-                    .to_owned()))?,
-            nist5: nist5.ok_or(
-                Error::Api("Nist5 algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            neo_scrypt: neo_scrypt.ok_or(
-                Error::Api("NeoScrypt algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            lyra2_re: lyra2_re.ok_or(
-                Error::Api("Lyra2RE algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            whirlpool_x: whirlpool_x.ok_or(
-                Error::Api("WhirlpoolX algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            qubit: qubit.ok_or(
-                Error::Api("Qubit algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            quark: quark.ok_or(
-                Error::Api("Quark algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            axiom: axiom.ok_or(
-                Error::Api("Axiom algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            lyra2_rev2: lyra2_rev2.ok_or(
-                Error::Api("Lyra2REv2 algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            scrypt_jane_nf16: scrypt_jane_nf16.ok_or(
-                Error::Api("ScryptJaneNf16 algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            blake256r8: blake256r8.ok_or(
-                Error::Api("Blake256r8 algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            blake256r14: blake256r14.ok_or(
-                Error::Api("Blake256r14 algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            blake256r8vnl: blake256r8vnl.ok_or(
-                Error::Api("Blake256r8vnl algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            hodl: hodl.ok_or(
-                Error::Api("Hodl algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            dagger_hashimoto: dagger_hashimoto.ok_or(
-                Error::Api("DaggerHashimoto algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            decred: decred.ok_or(
-                Error::Api("Decred algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            crypto_night: crypto_night.ok_or(
-                Error::Api("CryptoNight algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            lbry: lbry.ok_or(
-                Error::Api("Lbry algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
-            equihash: equihash.ok_or(
-                Error::Api("Equihash algorithm information not found in buy information \
-                structure".to_owned())
-            )?,
+            down_time: Duration::from_secs(down_time.ok_or_else(|| {
+                    Error::Api("`down_time` not found in buy information structure".to_owned())
+                })?),
+            scrypt: scrypt.ok_or_else(|| {
+                    Error::Api("Scrypt algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            sha256: sha256.ok_or_else(|| {
+                    Error::Api("SHA256 algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            scrypt_nf: scrypt_nf.ok_or_else(|| {
+                    Error::Api("ScryptNf algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            x11: x11.ok_or_else(|| {
+                    Error::Api("X11 algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            x13: x13.ok_or_else(|| {
+                    Error::Api("X13 algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            keccak: keccak.ok_or_else(|| {
+                    Error::Api("Keccak algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            x15: x15.ok_or_else(|| {
+                    Error::Api("X15 algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            nist5: nist5.ok_or_else(|| {
+                    Error::Api("Nist5 algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            neo_scrypt: neo_scrypt.ok_or_else(|| {
+                    Error::Api("NeoScrypt algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            lyra2_re: lyra2_re.ok_or_else(|| {
+                    Error::Api("Lyra2RE algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            whirlpool_x: whirlpool_x.ok_or_else(|| {
+                    Error::Api("WhirlpoolX algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            qubit: qubit.ok_or_else(|| {
+                    Error::Api("Qubit algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            quark: quark.ok_or_else(|| {
+                    Error::Api("Quark algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            axiom: axiom.ok_or_else(|| {
+                    Error::Api("Axiom algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            lyra2_rev2: lyra2_rev2.ok_or_else(|| {
+                    Error::Api("Lyra2REv2 algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            scrypt_jane_nf16: scrypt_jane_nf16.ok_or_else(|| {
+                    Error::Api("ScryptJaneNf16 algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            blake256r8: blake256r8.ok_or_else(|| {
+                    Error::Api("Blake256r8 algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            blake256r14: blake256r14.ok_or_else(|| {
+                    Error::Api("Blake256r14 algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            blake256r8vnl: blake256r8vnl.ok_or_else(|| {
+                    Error::Api("Blake256r8vnl algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            hodl: hodl.ok_or_else(|| {
+                    Error::Api("Hodl algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            dagger_hashimoto: dagger_hashimoto.ok_or_else(|| {
+                    Error::Api("DaggerHashimoto algorithm information not found in buy \
+                                information structure"
+                        .to_owned())
+                })?,
+            decred: decred.ok_or_else(|| {
+                    Error::Api("Decred algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            crypto_night: crypto_night.ok_or_else(|| {
+                    Error::Api("CryptoNight algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
+            lbry: lbry.ok_or_else(|| {
+                    Error::Api("Lbry algorithm information not found in buy information structure"
+                        .to_owned())
+                })?,
+            equihash: equihash.ok_or_else(|| {
+                    Error::Api("Equihash algorithm information not found in buy information \
+                                structure"
+                        .to_owned())
+                })?,
         })
     }
 
@@ -656,39 +695,49 @@ impl AlgoBuyInfo {
     pub fn from_json(json: Value) -> Result<(Algorithm, AlgoBuyInfo)> {
         if let Value::Object(buy_info) = json {
             let algorithm = Algorithm::from_u64(buy_info.get("algo")
-                .ok_or(Error::Api("`algo` not found in buy information".to_owned()))?
+                .ok_or_else(|| Error::Api("`algo` not found in buy information".to_owned()))?
                 .as_u64()
-                .ok_or(Error::Api("invalid algorithm in buy information (must be an unsigned \
+                .ok_or_else(|| {
+                    Error::Api("invalid algorithm in buy information (must be an unsigned \
                                    integer)"
-                    .to_owned()))?)?;
+                        .to_owned())
+                })?)?;
 
             Ok((algorithm,
                 AlgoBuyInfo {
                 down_step: buy_info.get("down_step")
-                    .ok_or(Error::Api("`down_step` not found in buy information".to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("`down_step` not found in buy information".to_owned())})?
                     .as_str()
-                    .ok_or(Error::Api("invalid `down_step` in stats (must be a float in a \
+                    .ok_or_else(|| {
+                        Error::Api("invalid `down_step` in stats (must be a float in a \
                                        string)"
-                        .to_owned()))?
+                        .to_owned())})?
                     .parse()?,
                 min_limit: buy_info.get("min_limit")
-                    .ok_or(Error::Api("`min_limit` not found in buy information".to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("`min_limit` not found in buy information".to_owned())})?
                     .as_str()
-                    .ok_or(Error::Api("invalid `min_limit` in stats (must be a float in a \
+                    .ok_or_else(|| {
+                        Error::Api("invalid `min_limit` in stats (must be a float in a \
                                        string)"
-                        .to_owned()))?
+                        .to_owned())})?
                     .parse()?,
                 speed_text: buy_info.get("speed_text")
-                    .ok_or(Error::Api("`speed_text` not found in buy information".to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("`speed_text` not found in buy information".to_owned())})?
                     .as_str()
-                    .ok_or(Error::Api("invalid `speed_text` in stats (must be a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `speed_text` in stats (must be a string)"
+                        .to_owned())})?
                     .to_owned(),
                 multi: buy_info.get("multi")
-                    .ok_or(Error::Api("`multi` not found in buy information".to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("`multi` not found in buy information".to_owned())})?
                     .as_str()
-                    .ok_or(Error::Api("invalid `multi` in stats (must be a float in a string)"
-                        .to_owned()))?
+                    .ok_or_else(|| {
+                        Error::Api("invalid `multi` in stats (must be a float in a string)"
+                        .to_owned())})?
                     .parse()?,
             }))
         } else {
@@ -720,24 +769,34 @@ impl AlgoBuyInfo {
 /// Pool information.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct PoolInfo {
+    /// Host of the pool.
     pub host: String,
+    /// Port of the pool.
     pub port: u16,
+    /// Username/worker of the pool.
     pub username: String,
+    /// Password of the pool worker.
     pub password: String,
 }
 
 /// New order information.
 #[derive(Debug)]
 pub struct NewOrder {
+    /// Algorithm for the new order.
     pub algorithm: Algorithm,
+    /// Amount of BTC used to pay the order.
     pub amount: f64,
+    /// Price of the hashing.
     pub price: f64,
+    /// Hashing limit.
     pub limit: Option<f64>,
 }
 
 /// Account balance.
 #[derive(Debug, Default)]
 pub struct Balance {
+    /// Confirmed balance.
     pub confirmed: f64,
+    /// Pending balance.
     pub pending: f64,
 }

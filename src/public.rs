@@ -15,9 +15,9 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "stats.global.current");
+            let _ = query_pairs.append_pair("method", "stats.global.current");
             if let Some(location) = location {
-                query_pairs.append_pair("location", location.as_str());
+                let _ = query_pairs.append_pair("location", location.as_str());
             }
         }
 
@@ -76,7 +76,7 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "stats.global.24h");
+            let _ = query_pairs.append_pair("method", "stats.global.24h");
         }
 
         let response = self.inner.get(url).send()?;
@@ -111,9 +111,9 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.get");
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", algorithm.as_str());
+            let _ = query_pairs.append_pair("method", "orders.get");
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", algorithm.as_str());
         }
 
         let response = self.inner.get(url).send()?;
@@ -154,7 +154,7 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "buy.info");
+            let _ = query_pairs.append_pair("method", "buy.info");
         }
 
         let response = self.inner.get(url).send()?;
