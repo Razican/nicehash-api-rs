@@ -21,8 +21,8 @@ impl Client {
             }
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -79,8 +79,8 @@ impl Client {
             query_pairs.append_pair("method", "stats.global.24h");
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if let Some((key, Value::Array(arr))) = s.into_iter().next() {
@@ -116,8 +116,8 @@ impl Client {
             query_pairs.append_pair("algo", algorithm.as_str());
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if let Some((key, Value::Array(arr))) = s.into_iter().next() {
@@ -157,8 +157,8 @@ impl Client {
             query_pairs.append_pair("method", "buy.info");
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(res)) = (key.as_str(), value) {
                     return BuyInfo::from_json(res);

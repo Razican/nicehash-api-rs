@@ -28,8 +28,8 @@ impl Client {
             query_pairs.append_pair("algo", algorithm.as_str());
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -121,8 +121,8 @@ impl Client {
             }
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -134,12 +134,12 @@ impl Client {
                             "success" => {
                                 if let Value::String(message) = value {
                                     let (_, id_plus) = message.split_at(6);
-                                    let (id, _) = id_plus.split_at(try!(id_plus.find(' ')
+                                    let (id, _) = id_plus.split_at(id_plus.find(' ')
                                         .ok_or(Error::Api("unexpected success string in \
                                                            orders.create response (it must \
                                                            have a space after the order ID)"
-                                            .to_owned()))));
-                                    return Ok(try!(id.parse()));
+                                            .to_owned()))?);
+                                    return Ok(id.parse()?);
                                 } else {
                                     return Err(Error::Api("invalid `success` field found in \
                                                            `orders.create` response, expected \
@@ -201,8 +201,8 @@ impl Client {
             query_pairs.append_pair("amount", &format!("{:.8}", amount));
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -266,8 +266,8 @@ impl Client {
             query_pairs.append_pair("order", &format!("{}", order_id));
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -336,8 +336,8 @@ impl Client {
             query_pairs.append_pair("price", &format!("{:.8}", price));
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -406,8 +406,8 @@ impl Client {
             query_pairs.append_pair("order", &format!("{}", order_id));
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -420,7 +420,7 @@ impl Client {
                             "success" => {
                                 if let Value::String(s) = value {
                                     let (_, price) = s.split_at(24);
-                                    return Ok(try!(price.parse()));
+                                    return Ok(price.parse()?);
                                 } else {
                                     return Err(Error::Api("invalid `success` field found in \
                                                            `orders.set.price.decrease` \
@@ -494,8 +494,8 @@ impl Client {
 
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -549,8 +549,8 @@ impl Client {
             query_pairs.append_pair("key", api_key.as_ref());
         }
 
-        let response = try!(self.inner.get(url).send());
-        if let Value::Object(r) = try!(de::from_reader(response)) {
+        let response = self.inner.get(url).send()?;
+        if let Value::Object(r) = de::from_reader(response)? {
             for (key, value) in r {
                 if let ("result", Value::Object(s)) = (key.as_str(), value) {
                     if s.is_empty() {
@@ -561,7 +561,7 @@ impl Client {
                         match key.as_str() {
                             "balance_confirmed" => {
                                 if let Value::String(confirmed) = value {
-                                    balance.confirmed = try!(confirmed.parse());
+                                    balance.confirmed = confirmed.parse()?;
                                 } else {
                                     return Err(Error::Api("invalid `balance_confirmed` field \
                                                            found in `balance` response, \
@@ -571,7 +571,7 @@ impl Client {
                             }
                             "balance_pending" => {
                                 if let Value::String(pending) = value {
-                                    balance.pending = try!(pending.parse());
+                                    balance.pending = pending.parse()?;
                                 } else {
                                     return Err(Error::Api("invalid `balance_pending` field \
                                                            found in `balance` response, \
