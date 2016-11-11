@@ -20,12 +20,12 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.get");
-            query_pairs.append_pair("my", "");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", algorithm.as_str());
+            let _ = query_pairs.append_pair("method", "orders.get");
+            let _ = query_pairs.append_pair("my", "");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", algorithm.as_str());
         }
 
         let response = self.inner.get(url).send()?;
@@ -100,24 +100,24 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.create");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", order.algorithm.as_str());
-            query_pairs.append_pair("amount", &format!("{:.8}", order.amount));
-            query_pairs.append_pair("price", &format!("{}", order.price));
+            let _ = query_pairs.append_pair("method", "orders.create");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", order.algorithm.as_str());
+            let _ = query_pairs.append_pair("amount", &format!("{:.8}", order.amount));
+            let _ = query_pairs.append_pair("price", &format!("{}", order.price));
             if let Some(limit) = order.limit {
-                query_pairs.append_pair("limit", &format!("{}", limit));
+                let _ = query_pairs.append_pair("limit", &format!("{}", limit));
             } else {
-                query_pairs.append_pair("limit", "0");
+                let _ = query_pairs.append_pair("limit", "0");
             }
-            query_pairs.append_pair("pool_host", &pool.host);
-            query_pairs.append_pair("pool_port", &format!("{}", pool.port));
-            query_pairs.append_pair("pool_user", &pool.username);
-            query_pairs.append_pair("pool_pass", &pool.password);
+            let _ = query_pairs.append_pair("pool_host", &pool.host);
+            let _ = query_pairs.append_pair("pool_port", &format!("{}", pool.port));
+            let _ = query_pairs.append_pair("pool_user", &pool.username);
+            let _ = query_pairs.append_pair("pool_pass", &pool.password);
             if let Some(code) = code {
-                query_pairs.append_pair("code", &format!("{:06}", code));
+                let _ = query_pairs.append_pair("code", &format!("{:06}", code));
             }
         }
 
@@ -135,10 +135,12 @@ impl Client {
                                 if let Value::String(message) = value {
                                     let (_, id_plus) = message.split_at(6);
                                     let (id, _) = id_plus.split_at(id_plus.find(' ')
-                                        .ok_or(Error::Api("unexpected success string in \
-                                                           orders.create response (it must \
-                                                           have a space after the order ID)"
-                                            .to_owned()))?);
+                                        .ok_or_else(|| {
+                                            Error::Api("unexpected success string in \
+                                                        orders.create response (it must have a \
+                                                        space after the order ID)"
+                                                .to_owned())
+                                        })?);
                                     return Ok(id.parse()?);
                                 } else {
                                     return Err(Error::Api("invalid `success` field found in \
@@ -192,13 +194,13 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.refill");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", algorithm.as_str());
-            query_pairs.append_pair("order", &format!("{}", order_id));
-            query_pairs.append_pair("amount", &format!("{:.8}", amount));
+            let _ = query_pairs.append_pair("method", "orders.refill");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", algorithm.as_str());
+            let _ = query_pairs.append_pair("order", &format!("{}", order_id));
+            let _ = query_pairs.append_pair("amount", &format!("{:.8}", amount));
         }
 
         let response = self.inner.get(url).send()?;
@@ -258,12 +260,12 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.remove");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", algorithm.as_str());
-            query_pairs.append_pair("order", &format!("{}", order_id));
+            let _ = query_pairs.append_pair("method", "orders.remove");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", algorithm.as_str());
+            let _ = query_pairs.append_pair("order", &format!("{}", order_id));
         }
 
         let response = self.inner.get(url).send()?;
@@ -327,13 +329,13 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.set.price");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", algorithm.as_str());
-            query_pairs.append_pair("order", &format!("{}", order_id));
-            query_pairs.append_pair("price", &format!("{:.8}", price));
+            let _ = query_pairs.append_pair("method", "orders.set.price");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", algorithm.as_str());
+            let _ = query_pairs.append_pair("order", &format!("{}", order_id));
+            let _ = query_pairs.append_pair("price", &format!("{:.8}", price));
         }
 
         let response = self.inner.get(url).send()?;
@@ -398,12 +400,12 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.set.price.decrease");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", algorithm.as_str());
-            query_pairs.append_pair("order", &format!("{}", order_id));
+            let _ = query_pairs.append_pair("method", "orders.set.price.decrease");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", algorithm.as_str());
+            let _ = query_pairs.append_pair("order", &format!("{}", order_id));
         }
 
         let response = self.inner.get(url).send()?;
@@ -477,19 +479,19 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "orders.set.limit");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
-            query_pairs.append_pair("location", location.as_str());
-            query_pairs.append_pair("algo", algorithm.as_str());
-            query_pairs.append_pair("order", &format!("{}", order_id));
+            let _ = query_pairs.append_pair("method", "orders.set.limit");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("location", location.as_str());
+            let _ = query_pairs.append_pair("algo", algorithm.as_str());
+            let _ = query_pairs.append_pair("order", &format!("{}", order_id));
             if let Some(l) = speed_limit {
                 if l <= 0.0 {
                     return Err(Error::Result("Order id/limit/algo incorrect.".to_owned()));
                 }
-                query_pairs.append_pair("limit", &format!("{:.8}", l));
+                let _ = query_pairs.append_pair("limit", &format!("{:.8}", l));
             } else {
-                query_pairs.append_pair("limit", "0");
+                let _ = query_pairs.append_pair("limit", "0");
             }
 
         }
@@ -544,9 +546,9 @@ impl Client {
         let mut url = Url::parse(API_URL).unwrap();
         {
             let mut query_pairs = url.query_pairs_mut();
-            query_pairs.append_pair("method", "balance");
-            query_pairs.append_pair("id", &format!("{}", api_id));
-            query_pairs.append_pair("key", api_key.as_ref());
+            let _ = query_pairs.append_pair("method", "balance");
+            let _ = query_pairs.append_pair("id", &format!("{}", api_id));
+            let _ = query_pairs.append_pair("key", api_key.as_ref());
         }
 
         let response = self.inner.get(url).send()?;

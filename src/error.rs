@@ -15,14 +15,23 @@ pub type Result<T> = StdResult<T, Error>;
 /// Main error enum for nicehash.com API.
 #[derive(Debug)]
 pub enum Error {
+    /// Hyper request error.
     Hyper(HyperError),
+    /// JSON decoding error.
     Json(JsonError),
+    /// SemVer parsing error.
     SemVer(SemVerError),
+    /// API error.
     Api(String),
+    /// Unsuccessful result.
     Result(String),
+    /// Invalid algorithm.
     ParseAlgorithm(String),
+    /// Invalid order type.
     ParseOrderType(String),
+    /// Float parsing error.
     ParseFloat(ParseFloatError),
+    /// Int parsing error.
     ParseInt(ParseIntError),
 }
 

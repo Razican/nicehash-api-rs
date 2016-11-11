@@ -1,11 +1,18 @@
 //! [nicehash.com](https://www.nicehash.com/) API implementation for Rust.
 
+#![forbid(missing_docs, warnings)]
+#![deny(deprecated, improper_ctypes, non_shorthand_field_patterns, overflowing_literals,
+    plugin_as_library, private_no_mangle_fns, private_no_mangle_statics, stable_features,
+    unconditional_recursion, unknown_lints, unused, unused_allocation, unused_attributes,
+    unused_comparisons, unused_features, unused_parens, while_true)]
+#![warn(trivial_casts, trivial_numeric_casts, unused, unused_extern_crates, unused_import_braces,
+    unused_qualifications, unused_results, variant_size_differences)]
+
 #[macro_use]
 extern crate lazy_static;
 extern crate hyper;
 extern crate semver;
 extern crate serde_json;
-extern crate serde;
 
 use std::ops::Deref;
 
@@ -92,6 +99,7 @@ impl Deref for Client {
     }
 }
 
+/// Calculates the withdrawal fee for the given amount.
 pub fn calculate_withdrawal_fee(amount: f64) -> f64 {
     if amount > 0.5 { amount * 0.001 } else { 0.0005 }
 }
@@ -99,7 +107,9 @@ pub fn calculate_withdrawal_fee(amount: f64) -> f64 {
 /// Enum representing the location of the servers.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Location {
+    /// Europe NiceHash server.
     Europe = 0,
+    /// USA NiceHash server.
     USA = 1,
 }
 
@@ -113,10 +123,12 @@ impl Location {
     }
 }
 
-/// Enum representing all algorithms in nicehash.com.
+/// Enum representing all order types in nicehash.com.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum OrderType {
+    /// Standard order type.
     Standard = 0,
+    /// Fixed price order type.
     Fixed = 1,
 }
 
@@ -134,30 +146,55 @@ impl OrderType {
 /// Enum representing all algorithms in nicehash.com.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Algorithm {
+    /// Scrypt algorithm.
     Scrypt = 0,
+    /// SHA256 algorithm.
     SHA256 = 1,
+    /// ScryptNf algorithm.
     ScryptNf = 2,
+    /// X11 algorithm.
     X11 = 3,
+    /// X13 algorithm.
     X13 = 4,
+    /// Keccak algorithm.
     Keccak = 5,
+    /// X15 algorithm.
     X15 = 6,
+    /// Nist5 algorithm.
     Nist5 = 7,
+    /// NeoScrypt algorithm.
     NeoScrypt = 8,
+    /// Lyra2RE algorithm.
     Lyra2RE = 9,
+    /// WhirlpoolX algorithm.
     WhirlpoolX = 10,
+    /// Qubit algorithm.
     Qubit = 11,
+    /// Quark algorithm.
     Quark = 12,
+    /// Axiom algorithm.
     Axiom = 13,
+    /// Lyra2REv2 algorithm.
     Lyra2REv2 = 14,
+    /// ScryptJaneNf16 algorithm.
     ScryptJaneNf16 = 15,
+    /// Blake256r8 algorithm.
     Blake256r8 = 16,
+    /// Blake256r14 algorithm.
     Blake256r14 = 17,
+    /// Blake256r8vnl algorithm.
     Blake256r8vnl = 18,
+    /// Hodl algorithm.
     Hodl = 19,
+    /// DaggerHashimoto algorithm.
     DaggerHashimoto = 20,
+    /// Decred algorithm.
     Decred = 21,
+    /// CryptoNight algorithm.
     CryptoNight = 22,
+    /// Lbry algorithm.
     Lbry = 23,
+    /// Equihash algorithm.
     Equihash = 24,
 }
 
