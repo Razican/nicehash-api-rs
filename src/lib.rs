@@ -8,8 +8,6 @@
 #![warn(trivial_casts, trivial_numeric_casts, unused, unused_extern_crates, unused_import_braces,
     unused_qualifications, unused_results, variant_size_differences)]
 
-#[macro_use]
-extern crate lazy_static;
 extern crate hyper;
 extern crate semver;
 extern crate serde_json;
