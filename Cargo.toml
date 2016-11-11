@@ -14,7 +14,6 @@ keywords = ["NiceHash", "api", "hashing", "mining", "coin"]
 
 
 [dependencies]
-lazy_static = "0.2"
 semver = "0.5"
 serde_json = "0.8"
 
