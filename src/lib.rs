@@ -45,7 +45,7 @@ impl Client {
 
     /// Creates a new API client from a Hyper client.
     pub fn from_hyper_client(hyper_client: hyper::Client) -> Result<Client> {
-        let version = try!(Client::remote_version(&hyper_client));
+        let version = Client::remote_version(&hyper_client)?;
         Ok(Client {
             inner: hyper_client,
             remote_version: version,
@@ -65,18 +65,18 @@ impl Client {
     /// This will check the current version of the remote server and store it in the `Client`
     /// object for later use.
     pub fn update_api_version(&mut self) -> Result<&Version> {
-        let version = try!(Client::remote_version(&self.inner));
+        let version = Client::remote_version(&self.inner)?;
         self.remote_version = version;
         Ok(&self.remote_version)
     }
 
     /// Gets the version of the remote API.
     fn remote_version(hyper_client: &hyper::Client) -> Result<Version> {
-        let response = try!(hyper_client.get(API_URL).send());
-        let response_json: Value = try!(de::from_reader(response));
+        let response = hyper_client.get(API_URL).send()?;
+        let response_json: Value = de::from_reader(response)?;
         if let Some(&Value::String(ref version)) =
                response_json.find_path(&["result", "api_version"]) {
-            Ok(try!(Version::parse(version)))
+            Ok(Version::parse(version)?)
         } else {
             Err(Error::Api("the api returned an invalid response for the version request"
                 .to_owned()))
