@@ -133,7 +133,7 @@ impl AlgoStat {
     /// Creates an `AlgoStat` from a JSON value.
     fn from_json(json: BTreeMap<String, Value>) -> Result<(Algorithm, AlgoStat)> {
         let algorithm = Algorithm::from_u64(json.get("algo")
-                .ok_or(Error::Api("`algo` not found in stats".to_owned()))?
+            .ok_or(Error::Api("`algo` not found in stats".to_owned()))?
             .as_u64()
             .ok_or(Error::Api("invalid algorithm in stats (must be an unsigned integer)"
                 .to_owned()))?)?;
@@ -141,9 +141,9 @@ impl AlgoStat {
         let profitability_above_btc = match json.get("profitability_above_btc") {
             Some(v) => {
                 Some(v.as_str()
-                        .ok_or(Error::Api("invalid `profitability_above_btc` in stats (must \
-                                           be a float in a string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("invalid `profitability_above_btc` in stats (must be a \
+                                       float in a string)"
+                        .to_owned()))?
                     .parse()?)
             }
             None => None,
@@ -151,9 +151,9 @@ impl AlgoStat {
         let profitability_btc = match json.get("profitability_btc") {
             Some(v) => {
                 Some(v.as_str()
-                        .ok_or(Error::Api("invalid `profitability_btc` in stats (must be a \
-                                           float in a string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("invalid `profitability_btc` in stats (must be a float in \
+                                       a string)"
+                        .to_owned()))?
                     .parse()?)
             }
             None => None,
@@ -162,9 +162,9 @@ impl AlgoStat {
         let profitability_above_eth = match json.get("profitability_above_eth") {
             Some(v) => {
                 Some(v.as_str()
-                        .ok_or(Error::Api("invalid `profitability_above_eth` in stats (must \
-                                           be a float in a string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("invalid `profitability_above_eth` in stats (must be a \
+                                       float in a string)"
+                        .to_owned()))?
                     .parse()?)
             }
             None => None,
@@ -172,9 +172,9 @@ impl AlgoStat {
         let profitability_eth = match json.get("profitability_eth") {
             Some(v) => {
                 Some(v.as_str()
-                        .ok_or(Error::Api("invalid `profitability_eth` in stats (must be a \
-                                           float in a string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("invalid `profitability_eth` in stats (must be a float in \
+                                       a string)"
+                        .to_owned()))?
                     .parse()?)
             }
             None => None,
@@ -183,9 +183,9 @@ impl AlgoStat {
         let profitability_above_ltc = match json.get("profitability_above_ltc") {
             Some(v) => {
                 Some(v.as_str()
-                        .ok_or(Error::Api("invalid `profitability_above_ltc` in stats (must \
-                                           be a float in a string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("invalid `profitability_above_ltc` in stats (must be a \
+                                       float in a string)"
+                        .to_owned()))?
                     .parse()?)
             }
             None => None,
@@ -193,9 +193,9 @@ impl AlgoStat {
         let profitability_ltc = match json.get("profitability_ltc") {
             Some(v) => {
                 Some(v.as_str()
-                        .ok_or(Error::Api("invalid `profitability_ltc` in stats (must be a \
-                                           float in a string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("invalid `profitability_ltc` in stats (must be a float in \
+                                       a string)"
+                        .to_owned()))?
                     .parse()?)
             }
             None => None,
@@ -204,16 +204,16 @@ impl AlgoStat {
         Ok((algorithm,
             AlgoStat {
             price: json.get("price")
-                        .ok_or(Error::Api("`price` not found in stats".to_owned()))?
-                    .as_str()
-                    .ok_or(Error::Api("invalid `price` in stats (must be a float in a string)"
-                        .to_owned()))?
+                .ok_or(Error::Api("`price` not found in stats".to_owned()))?
+                .as_str()
+                .ok_or(Error::Api("invalid `price` in stats (must be a float in a string)"
+                    .to_owned()))?
                 .parse()?,
             speed: json.get("speed")
-                        .ok_or(Error::Api("`speed` not found in stats".to_owned()))?
-                    .as_str()
-                    .ok_or(Error::Api("invalid `speed` in stats (must be a float in a string)"
-                        .to_owned()))?
+                .ok_or(Error::Api("`speed` not found in stats".to_owned()))?
+                .as_str()
+                .ok_or(Error::Api("invalid `speed` in stats (must be a float in a string)"
+                    .to_owned()))?
                 .parse()?,
             profitability_above_btc: profitability_above_btc,
             profitability_btc: profitability_btc,
@@ -283,48 +283,46 @@ impl Order {
     pub fn from_json(json: Value) -> Result<Order> {
         if let Value::Object(v) = json {
             let id = v.get("id")
-                    .ok_or(Error::Api("no `id` parameter found in the order".to_owned()))?
+                .ok_or(Error::Api("no `id` parameter found in the order".to_owned()))?
                 .as_u64()
                 .ok_or(Error::Api("invalid order id".to_owned()))?;
 
             let order_type = OrderType::from_u64(v.get("type")
-                    .ok_or(Error::Api("no `type` parameter found in the order".to_owned()))?
+                .ok_or(Error::Api("no `type` parameter found in the order".to_owned()))?
                 .as_u64()
                 .ok_or(Error::Api("invalid order type".to_owned()))?)?;
 
             let limit_speed = v.get("limit_speed")
-                        .ok_or(Error::Api("no `limit_speed` parameter found in the order"
-                            .to_owned()))?
-                    .as_str()
-                    .ok_or(Error::Api("invalid order limit speed".to_owned()))?
+                .ok_or(Error::Api("no `limit_speed` parameter found in the order".to_owned()))?
+                .as_str()
+                .ok_or(Error::Api("invalid order limit speed".to_owned()))?
                 .parse()?;
 
             let alive = v.get("alive")
-                    .ok_or(Error::Api("no `alive` parameter found in the order".to_owned()))?
+                .ok_or(Error::Api("no `alive` parameter found in the order".to_owned()))?
                 .as_bool()
                 .ok_or(Error::Api("invalid order `alive` parameter".to_owned()))?;
 
             let price = v.get("price")
-                        .ok_or(Error::Api("no `price` parameter found in the order".to_owned()))?
-                    .as_str()
-                    .ok_or(Error::Api("invalid order price".to_owned()))?
+                .ok_or(Error::Api("no `price` parameter found in the order".to_owned()))?
+                .as_str()
+                .ok_or(Error::Api("invalid order price".to_owned()))?
                 .parse()?;
 
             let workers = v.get("workers")
-                    .ok_or(Error::Api("no `workers` parameter found in the order".to_owned()))?
+                .ok_or(Error::Api("no `workers` parameter found in the order".to_owned()))?
                 .as_u64()
                 .ok_or(Error::Api("invalid order workers".to_owned()))?;
 
             let algorithm = Algorithm::from_u64(v.get("algo")
-                    .ok_or(Error::Api("no algorithm found in the order".to_owned()))?
+                .ok_or(Error::Api("no algorithm found in the order".to_owned()))?
                 .as_u64()
                 .ok_or(Error::Api("invalid order algorithm".to_owned()))?)?;
 
             let accepted_speed = v.get("accepted_speed")
-                        .ok_or(Error::Api("no `accepted_speed` parameter found in the order"
-                            .to_owned()))?
-                    .as_str()
-                    .ok_or(Error::Api("invalid order accepted speed".to_owned()))?
+                .ok_or(Error::Api("no `accepted_speed` parameter found in the order".to_owned()))?
+                .as_str()
+                .ok_or(Error::Api("invalid order accepted speed".to_owned()))?
                 .parse()?;
 
             Ok(Order {
@@ -460,8 +458,7 @@ impl BuyInfo {
                         }
 
                         for alg_buy_info in arr {
-                            let (algorithm, alg_buy_info) =
-                                AlgoBuyInfo::from_json(alg_buy_info)?;
+                            let (algorithm, alg_buy_info) = AlgoBuyInfo::from_json(alg_buy_info)?;
                             match algorithm {
                                 Algorithm::Scrypt => scrypt = Some(alg_buy_info),
                                 Algorithm::SHA256 => sha256 = Some(alg_buy_info),
@@ -659,7 +656,7 @@ impl AlgoBuyInfo {
     pub fn from_json(json: Value) -> Result<(Algorithm, AlgoBuyInfo)> {
         if let Value::Object(buy_info) = json {
             let algorithm = Algorithm::from_u64(buy_info.get("algo")
-                    .ok_or(Error::Api("`algo` not found in buy information".to_owned()))?
+                .ok_or(Error::Api("`algo` not found in buy information".to_owned()))?
                 .as_u64()
                 .ok_or(Error::Api("invalid algorithm in buy information (must be an unsigned \
                                    integer)"
@@ -668,35 +665,30 @@ impl AlgoBuyInfo {
             Ok((algorithm,
                 AlgoBuyInfo {
                 down_step: buy_info.get("down_step")
-                            .ok_or(Error::Api("`down_step` not found in buy information"
-                                .to_owned()))?
-                        .as_str()
-                        .ok_or(Error::Api("invalid `down_step` in stats (must be a float in a \
-                                           string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("`down_step` not found in buy information".to_owned()))?
+                    .as_str()
+                    .ok_or(Error::Api("invalid `down_step` in stats (must be a float in a \
+                                       string)"
+                        .to_owned()))?
                     .parse()?,
                 min_limit: buy_info.get("min_limit")
-                            .ok_or(Error::Api("`min_limit` not found in buy information"
-                                .to_owned()))?
-                        .as_str()
-                        .ok_or(Error::Api("invalid `min_limit` in stats (must be a float in a \
-                                           string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("`min_limit` not found in buy information".to_owned()))?
+                    .as_str()
+                    .ok_or(Error::Api("invalid `min_limit` in stats (must be a float in a \
+                                       string)"
+                        .to_owned()))?
                     .parse()?,
                 speed_text: buy_info.get("speed_text")
-                            .ok_or(Error::Api("`speed_text` not found in buy information"
-                                .to_owned()))?
-                        .as_str()
-                        .ok_or(Error::Api("invalid `speed_text` in stats (must be a string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("`speed_text` not found in buy information".to_owned()))?
+                    .as_str()
+                    .ok_or(Error::Api("invalid `speed_text` in stats (must be a string)"
+                        .to_owned()))?
                     .to_owned(),
                 multi: buy_info.get("multi")
-                            .ok_or(Error::Api("`multi` not found in buy information"
-                                .to_owned()))?
-                        .as_str()
-                        .ok_or(Error::Api("invalid `multi` in stats (must be a float in a \
-                                           string)"
-                            .to_owned()))?
+                    .ok_or(Error::Api("`multi` not found in buy information".to_owned()))?
+                    .as_str()
+                    .ok_or(Error::Api("invalid `multi` in stats (must be a float in a string)"
+                        .to_owned()))?
                     .parse()?,
             }))
         } else {
