@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error","Main error enum for nicehash.com API."]],"type":[["Result","Result type for nicehash.com API."]]});

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Client` struct in crate `nicehash`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Client">
+
+    <title>nicehash::Client - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>nicehash</a></p><script>window.sidebarCurrent = {name: 'Client', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>nicehash</a>::<wbr><a class='struct' href=''>Client</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-868' class='srclink' href='../src/nicehash/src/lib.rs.html#37-40' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Client { /* fields omitted */ }</pre><div class='docblock'><p><a href="https://www.nicehash.com/">nicehash.com</a> API client.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../nicehash/struct.Client.html' title='nicehash::Client'>Client</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-568' class='srclink' href='../src/nicehash/src/public.rs.html#12-173' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p>Public API methods.</p>
+</div><div class='impl-items'><h4 id='method.global_stats_current' class='method'><span id='global_stats_current.v' class='invisible'><code>fn <a href='#method.global_stats_current' class='fnname'>global_stats_current</a>(&amp;self, location: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>&gt;) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='../nicehash/types/struct.GlobalStats.html' title='nicehash::types::GlobalStats'>GlobalStats</a>&gt;</code></span></h4>
+<div class='docblock'><p>Gets current global stats.</p>
+</div><h4 id='method.global_stats_24h' class='method'><span id='global_stats_24h.v' class='invisible'><code>fn <a href='#method.global_stats_24h' class='fnname'>global_stats_24h</a>(&amp;self) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='../nicehash/types/struct.GlobalStats.html' title='nicehash::types::GlobalStats'>GlobalStats</a>&gt;</code></span></h4>
+<div class='docblock'><p>Gets global stats for the last 24h.</p>
+</div><h4 id='method.get_orders' class='method'><span id='get_orders.v' class='invisible'><code>fn <a href='#method.get_orders' class='fnname'>get_orders</a>(&amp;self, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, algorithm: <a class='enum' href='../nicehash/enum.Algorithm.html' title='nicehash::Algorithm'>Algorithm</a>) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../nicehash/types/struct.Order.html' title='nicehash::types::Order'>Order</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Gets all orders for the given algorithm and location.</p>
+</div><h4 id='method.get_buy_info' class='method'><span id='get_buy_info.v' class='invisible'><code>fn <a href='#method.get_buy_info' class='fnname'>get_buy_info</a>(&amp;self) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='../nicehash/types/struct.BuyInfo.html' title='nicehash::types::BuyInfo'>BuyInfo</a>&gt;</code></span></h4>
+<div class='docblock'><p>Gets needed information for buying hashing power.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../nicehash/struct.Client.html' title='nicehash::Client'>Client</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-631' class='srclink' href='../src/nicehash/src/private.rs.html#12-609' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p>Private API methods.</p>
+</div><div class='impl-items'><h4 id='method.get_my_orders' class='method'><span id='get_my_orders.v' class='invisible'><code>fn <a href='#method.get_my_orders' class='fnname'>get_my_orders</a>&lt;S:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: S, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, algorithm: <a class='enum' href='../nicehash/enum.Algorithm.html' title='nicehash::Algorithm'>Algorithm</a>) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../nicehash/types/struct.Order.html' title='nicehash::types::Order'>Order</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Gets orders for the current user.</p>
+</div><h4 id='method.create_order' class='method'><span id='create_order.v' class='invisible'><code>fn <a href='#method.create_order' class='fnname'>create_order</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: K, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, order: <a class='struct' href='../nicehash/types/struct.NewOrder.html' title='nicehash::types::NewOrder'>NewOrder</a>, pool: <a class='struct' href='../nicehash/types/struct.PoolInfo.html' title='nicehash::types::PoolInfo'>PoolInfo</a>, code: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;</code></span></h4>
+<div class='docblock'><p>Creates a new order.</p>
+</div><h4 id='method.refill_order' class='method'><span id='refill_order.v' class='invisible'><code>fn <a href='#method.refill_order' class='fnname'>refill_order</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: K, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, algorithm: <a class='enum' href='../nicehash/enum.Algorithm.html' title='nicehash::Algorithm'>Algorithm</a>, order_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, amount: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Refills the given order with the given amount.</p>
+</div><h4 id='method.remove_order' class='method'><span id='remove_order.v' class='invisible'><code>fn <a href='#method.remove_order' class='fnname'>remove_order</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: K, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, algorithm: <a class='enum' href='../nicehash/enum.Algorithm.html' title='nicehash::Algorithm'>Algorithm</a>, order_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Removes the given order.</p>
+</div><h4 id='method.set_order_price' class='method'><span id='set_order_price.v' class='invisible'><code>fn <a href='#method.set_order_price' class='fnname'>set_order_price</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: K, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, algorithm: <a class='enum' href='../nicehash/enum.Algorithm.html' title='nicehash::Algorithm'>Algorithm</a>, order_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, price: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Sets the price to the given order.</p>
+</div><h4 id='method.decrease_order_price' class='method'><span id='decrease_order_price.v' class='invisible'><code>fn <a href='#method.decrease_order_price' class='fnname'>decrease_order_price</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: K, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, algorithm: <a class='enum' href='../nicehash/enum.Algorithm.html' title='nicehash::Algorithm'>Algorithm</a>, order_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>&gt;</code></span></h4>
+<div class='docblock'><p>Decrease the price to the given order.</p>
+
+<p>The decrease can only be done each 600 seconds (10 minutes). This number might change in
+the future and can be obtained with the <code>get_buy_info()</code> call. The price decrease is always
+done in finite amounts that are different for each algorithm and can also be obtained in
+that call.</p>
+</div><h4 id='method.set_order_speed_limit' class='method'><span id='set_order_speed_limit.v' class='invisible'><code>fn <a href='#method.set_order_speed_limit' class='fnname'>set_order_speed_limit</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: K, location: <a class='enum' href='../nicehash/enum.Location.html' title='nicehash::Location'>Location</a>, algorithm: <a class='enum' href='../nicehash/enum.Algorithm.html' title='nicehash::Algorithm'>Algorithm</a>, order_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, speed_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>&gt;) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Sets the speed limit for the given order.</p>
+
+<p>The decrease can only be done each 600 seconds (10 minutes). This number might change in
+the future and can be obtained with the <code>get_buy_info()</code> call.</p>
+</div><h4 id='method.get_balance' class='method'><span id='get_balance.v' class='invisible'><code>fn <a href='#method.get_balance' class='fnname'>get_balance</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(&amp;self, api_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, api_key: K) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='../nicehash/types/struct.Balance.html' title='nicehash::types::Balance'>Balance</a>&gt;</code></span></h4>
+<div class='docblock'><p>Gets the balance of the given account.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../nicehash/struct.Client.html' title='nicehash::Client'>Client</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-878' class='srclink' href='../src/nicehash/src/lib.rs.html#42-90' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='../nicehash/struct.Client.html' title='nicehash::Client'>Client</a>&gt;</code></span></h4>
+<div class='docblock'><p>Creates a new API client with default settings.</p>
+
+<p>It will also call the API to check that the connection works and to store the remote API
+version.</p>
+</div><h4 id='method.from_hyper_client' class='method'><span id='from_hyper_client.v' class='invisible'><code>fn <a href='#method.from_hyper_client' class='fnname'>from_hyper_client</a>(hyper_client: <a class='struct' href='../hyper/client/struct.Client.html' title='hyper::client::Client'>Client</a>) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;<a class='struct' href='../nicehash/struct.Client.html' title='nicehash::Client'>Client</a>&gt;</code></span></h4>
+<div class='docblock'><p>Creates a new API client from a Hyper client.</p>
+</div><h4 id='method.get_api_version' class='method'><span id='get_api_version.v' class='invisible'><code>fn <a href='#method.get_api_version' class='fnname'>get_api_version</a>(&amp;self) -&gt; &amp;<a class='struct' href='../semver/version/struct.Version.html' title='semver::version::Version'>Version</a></code></span></h4>
+<div class='docblock'><p>Gets the version of the remote API.</p>
+
+<p>This only returns the version stored in the client, it will not update the version if remote
+API is updated while the client has been created.</p>
+</div><h4 id='method.update_api_version' class='method'><span id='update_api_version.v' class='invisible'><code>fn <a href='#method.update_api_version' class='fnname'>update_api_version</a>(&amp;mut self) -&gt; <a class='type' href='../nicehash/error/type.Result.html' title='nicehash::error::Result'>Result</a>&lt;&amp;<a class='struct' href='../semver/version/struct.Version.html' title='semver::version::Version'>Version</a>&gt;</code></span></h4>
+<div class='docblock'><p>Updates the API version of this <code>Client</code>.</p>
+
+<p>This will check the current version of the remote server and store it in the <code>Client</code>
+object for later use.</p>
+</div></div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='struct' href='../hyper/client/struct.Client.html' title='hyper::client::Client'>Client</a>&gt;</h2><div class='impl-items'><h4 id='method.get' class='method'><span id='get.v' class='invisible'><code>fn <a href='#method.get' class='fnname'>get</a>&lt;U&gt;(&amp;self, url: U) -&gt; <a class='struct' href='../hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a> <span class='where'>where U: <a class='trait' href='../hyper/client/trait.IntoUrl.html' title='hyper::client::IntoUrl'>IntoUrl</a></span></code></span></h4>
+<div class='docblock'><p>Build a Get request.</p>
+</div><h4 id='method.head' class='method'><span id='head.v' class='invisible'><code>fn <a href='#method.head' class='fnname'>head</a>&lt;U&gt;(&amp;self, url: U) -&gt; <a class='struct' href='../hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a> <span class='where'>where U: <a class='trait' href='../hyper/client/trait.IntoUrl.html' title='hyper::client::IntoUrl'>IntoUrl</a></span></code></span></h4>
+<div class='docblock'><p>Build a Head request.</p>
+</div><h4 id='method.patch' class='method'><span id='patch.v' class='invisible'><code>fn <a href='#method.patch' class='fnname'>patch</a>&lt;U&gt;(&amp;self, url: U) -&gt; <a class='struct' href='../hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a> <span class='where'>where U: <a class='trait' href='../hyper/client/trait.IntoUrl.html' title='hyper::client::IntoUrl'>IntoUrl</a></span></code></span></h4>
+<div class='docblock'><p>Build a Patch request.</p>
+</div><h4 id='method.post' class='method'><span id='post.v' class='invisible'><code>fn <a href='#method.post' class='fnname'>post</a>&lt;U&gt;(&amp;self, url: U) -&gt; <a class='struct' href='../hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a> <span class='where'>where U: <a class='trait' href='../hyper/client/trait.IntoUrl.html' title='hyper::client::IntoUrl'>IntoUrl</a></span></code></span></h4>
+<div class='docblock'><p>Build a Post request.</p>
+</div><h4 id='method.put' class='method'><span id='put.v' class='invisible'><code>fn <a href='#method.put' class='fnname'>put</a>&lt;U&gt;(&amp;self, url: U) -&gt; <a class='struct' href='../hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a> <span class='where'>where U: <a class='trait' href='../hyper/client/trait.IntoUrl.html' title='hyper::client::IntoUrl'>IntoUrl</a></span></code></span></h4>
+<div class='docblock'><p>Build a Put request.</p>
+</div><h4 id='method.delete' class='method'><span id='delete.v' class='invisible'><code>fn <a href='#method.delete' class='fnname'>delete</a>&lt;U&gt;(&amp;self, url: U) -&gt; <a class='struct' href='../hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a> <span class='where'>where U: <a class='trait' href='../hyper/client/trait.IntoUrl.html' title='hyper::client::IntoUrl'>IntoUrl</a></span></code></span></h4>
+<div class='docblock'><p>Build a Delete request.</p>
+</div><h4 id='method.request' class='method'><span id='request.v' class='invisible'><code>fn <a href='#method.request' class='fnname'>request</a>&lt;U&gt;(&amp;self, method: <a class='enum' href='../hyper/method/enum.Method.html' title='hyper::method::Method'>Method</a>, url: U) -&gt; <a class='struct' href='../hyper/client/struct.RequestBuilder.html' title='hyper::client::RequestBuilder'>RequestBuilder</a> <span class='where'>where U: <a class='trait' href='../hyper/client/trait.IntoUrl.html' title='hyper::client::IntoUrl'>IntoUrl</a></span></code></span></h4>
+<div class='docblock'><p>Build a new request using this Client.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../nicehash/struct.Client.html' title='nicehash::Client'>Client</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-871' class='srclink' href='../src/nicehash/src/lib.rs.html#36' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../nicehash/struct.Client.html' title='nicehash::Client'>Client</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-893' class='srclink' href='../src/nicehash/src/lib.rs.html#92-98' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Target' class='type'><span id='Target.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#associatedtype.Target' class='type'>Target</a> = <a class='struct' href='../hyper/client/struct.Client.html' title='hyper::client::Client'>Client</a></code></span></h4>
+<div class='docblock'><p>The resulting type after dereferencing</p>
+</div><h4 id='method.deref' class='method'><span id='deref.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#tymethod.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;<a class='struct' href='../hyper/client/struct.Client.html' title='hyper::client::Client'>Client</a></code></span></h4>
+<div class='docblock'><p>The method called to dereference a value</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "nicehash";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
