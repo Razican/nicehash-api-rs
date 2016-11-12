@@ -259,4 +259,33 @@ impl Algorithm {
             Algorithm::Equihash => "24",
         }
     }
+
+    /// Gets all algorithms, in list.
+    pub fn all() -> [Algorithm; 25] {
+        [Algorithm::Scrypt,
+         Algorithm::SHA256,
+         Algorithm::ScryptNf,
+         Algorithm::X11,
+         Algorithm::X13,
+         Algorithm::Keccak,
+         Algorithm::X15,
+         Algorithm::Nist5,
+         Algorithm::NeoScrypt,
+         Algorithm::Lyra2RE,
+         Algorithm::WhirlpoolX,
+         Algorithm::Qubit,
+         Algorithm::Quark,
+         Algorithm::Axiom,
+         Algorithm::Lyra2REv2,
+         Algorithm::ScryptJaneNf16,
+         Algorithm::Blake256r8,
+         Algorithm::Blake256r14,
+         Algorithm::Blake256r8vnl,
+         Algorithm::Hodl,
+         Algorithm::DaggerHashimoto,
+         Algorithm::Decred,
+         Algorithm::CryptoNight,
+         Algorithm::Lbry,
+         Algorithm::Equihash]
+    }
 }
